@@ -34,7 +34,7 @@ public class ArcFixedStreamTest : MonoBehaviour
             path.Add(new FadeInDistance { distance = fadeInOver });
             return new SpawnData<Streams>
             {
-                stream = Streams.STREAM_1,
+                stream = Streams.STREAM_2,
                 manager = AnimationManager.Default,
                 path = path,
                 origin = new NTransform(gameObject),
