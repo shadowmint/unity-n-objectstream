@@ -1,0 +1,29 @@
+{
+  "name": "unity-n-objectstream",
+  "version": "0.0.1",
+  "description": "Object stream animation tools",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadowmint/unity-n-objectstream.git"
+  },
+  "files": [
+    "index.js",
+    "scripts",
+    "src"
+  ],
+  "author": "douglas.linder@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shadowmint/unity-n-objectstream/issues"
+  },
+  "homepage": "https://github.com/shadowmint/unity-n-objectstream",
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
+    "unity-n-animation": "github:shadowmint/unity-n-animation#0.0.2"
+  }
+}
