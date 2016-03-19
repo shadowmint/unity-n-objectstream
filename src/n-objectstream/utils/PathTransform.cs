@@ -55,5 +55,15 @@ namespace N.Package.ObjectStream
             color = default(Color32);
             active = true;
         }
+
+        /// Load from target
+        public void From(NTransform transform)
+        {
+            position = transform.position;
+            scale = transform.scale;
+            rotation = transform.rotation;
+            color = default(Color32);
+            active = true;
+        }
     }
 }
