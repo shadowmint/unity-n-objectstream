@@ -84,15 +84,17 @@ namespace N.Package.ObjectStream
         if ((Elapsed - _lastSpawn) > SpawnObjectEvery)
         {
           var req = _factory();
+          if (req.manager == null) return;
+
           _pool.Instance(req.origin).Then((gp) =>
           {
             // Start animation
             var animation = new FollowPathAnimation(this);
             animation.pathGroup = req.path;
             var target = new SingleSpawned(gp);
+
             req.manager.Add(req.stream, animation, req.curve, target);
             _lastSpawn = Elapsed;
-
             var context = new EventContext();
             req.manager.Events.AddEventHandler<AnimationCompleteEvent>((ep) =>
             {
