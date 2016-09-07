@@ -11,7 +11,7 @@ namespace N.Package.ObjectStream.Paths
 
         public void Update(IAnimationCurve curve, PathTransform transform, SpawnedObject target)
         {
-            var delta = (target.gameObject.transform.position - target.origin.position).magnitude;
+            var delta = (target.GameObject.transform.position - target.Origin.Position).magnitude;
             if (distance > 0)
             {
                 if (delta <= distance)

@@ -13,13 +13,13 @@ namespace N.Package.ObjectStream
         public SingleSpawned(SpawnedObject target)
         {
             this.target = target;
-            this.target.gameObject.transform.name = "SpawnedObject";
+            this.target.GameObject.transform.name = "SpawnedObject";
         }
 
         /// Remove a game object from this target
         public void Remove(GameObject target)
         {
-            if (this.target.gameObject == target)
+            if (this.target.GameObject == target)
             {
                 this.target = null;
             }
@@ -30,7 +30,7 @@ namespace N.Package.ObjectStream
         {
             if (target != null)
             {
-                yield return target.gameObject;
+                yield return target.GameObject;
             }
             yield break;
         }

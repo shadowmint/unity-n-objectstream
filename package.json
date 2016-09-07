@@ -1,6 +1,6 @@
 {
   "name": "unity-n-objectstream",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Object stream animation tools",
   "main": "index.js",
   "repository": {
@@ -24,6 +24,6 @@
   "dependencies": {
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
-    "unity-n-animation": "github:shadowmint/unity-n-animation#0.0.2"
+    "unity-n-animation": "github:shadowmint/unity-n-animation#1.0.0"
   }
 }

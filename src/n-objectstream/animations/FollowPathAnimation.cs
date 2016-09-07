@@ -41,10 +41,10 @@ namespace N.Package.ObjectStream
                     { path.Update(AnimationCurve, objectTransform, gp); }
 
                     // Check for halt state
-                    if ((gp.gameObject.activeSelf) && (!objectTransform.active))
+                    if ((gp.GameObject.activeSelf) && (!objectTransform.active))
                     {
-                        gp.gameObject.transform.name = "Inactive";
-                        atarget.Remove(gp.gameObject);
+                        gp.GameObject.transform.name = "Inactive";
+                        atarget.Remove(gp.GameObject);
                     }
                     else
                     {
@@ -52,13 +52,13 @@ namespace N.Package.ObjectStream
                         active = true;
 
                         // Apply to target
-                        gp.gameObject.transform.position = objectTransform.position;
-                        gp.gameObject.transform.rotation = objectTransform.rotation;
-                        gp.gameObject.transform.localScale = objectTransform.scale;
+                        gp.GameObject.transform.position = objectTransform.position;
+                        gp.GameObject.transform.rotation = objectTransform.rotation;
+                        gp.GameObject.transform.localScale = objectTransform.scale;
 
                         // Only update the color if there is one
-                        if (gp.renderer != null)
-                        { gp.renderer.material.color = objectTransform.color; }
+                        if (gp.Renderer != null)
+                        { gp.Renderer.material.color = objectTransform.color; }
                     }
                 }
 

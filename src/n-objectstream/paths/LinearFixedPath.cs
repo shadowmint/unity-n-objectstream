@@ -18,9 +18,9 @@ namespace N.Package.ObjectStream.Paths
             transform.scale = Vector3.Lerp(origin.transform.localScale, target.transform.localScale, curve.Value);
 
             // Find new position by speed
-            var direction = (target.transform.position - spawned.gameObject.transform.position).normalized;
+            var direction = (target.transform.position - spawned.GameObject.transform.position).normalized;
             var delta = speed * curve.Delta * direction;
-            var output = spawned.gameObject.transform.position + delta;
+            var output = spawned.GameObject.transform.position + delta;
 
             // Force position to be on the correct path
             var correctGap = (target.transform.position - origin.transform.position);

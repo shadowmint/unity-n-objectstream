@@ -14,7 +14,7 @@ namespace N.Package.ObjectStream.Paths
 
         public void Update(IAnimationCurve curve, PathTransform transform, SpawnedObject origin)
         {
-            var distance = (target.transform.position - origin.gameObject.transform.position).magnitude;
+            var distance = (target.transform.position - origin.GameObject.transform.position).magnitude;
             if (distance < offset)
             {
                 var total = 1f - (distance - offset) / offset;
