@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using N;
 using N.Package.Core;
@@ -24,7 +25,7 @@ namespace N.Package.ObjectStream
     private readonly List<SpawnedObject> _instances = new List<SpawnedObject>();
 
     /// Limit
-    private Option<int> limit;
+    private Option<int> _limit;
 
     /// Create an instance and provide a prefab factory to it to use
     /// @param factory A wrapped gameobject, use Scene.Prefab()
@@ -33,8 +34,8 @@ namespace N.Package.ObjectStream
     {
       if (factory)
       {
-        this._factory = factory.Unwrap();
-        this.limit = limit >= 0 ? Option.Some(limit) : Option.None<int>();
+        _factory = factory.Unwrap();
+        _limit = limit >= 0 ? Option.Some(limit) : Option.None<int>();
         return;
       }
       throw new Exception("Unable to create object pool from null prefab");
@@ -55,9 +56,9 @@ namespace N.Package.ObjectStream
     /// Create a new instance
     private Option<SpawnedObject> NewInstance(NTransform origin)
     {
-      if (limit)
+      if (_limit)
       {
-        if (_instances.Count >= limit.Unwrap())
+        if (_instances.Count >= _limit.Unwrap())
         {
           return Option.None<SpawnedObject>();
         }
@@ -70,7 +71,7 @@ namespace N.Package.ObjectStream
         {
           GameObject = gp,
           Origin = origin,
-          Renderer = gp.GetComponent<Renderer>()
+          Renderer = gp.GetComponentInChildren<Renderer>()
         };
         ApplyTransform(instance);
         _instances.Add(instance);
@@ -124,15 +125,7 @@ namespace N.Package.ObjectStream
     {
       get
       {
-        var count = 0;
-        foreach (var instance in _instances)
-        {
-          if (instance.GameObject.activeSelf)
-          {
-            count += 1;
-          }
-        }
-        return count;
+        return _instances.Count(instance => instance.GameObject.activeSelf);
       }
     }
   }

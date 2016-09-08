@@ -10,21 +10,21 @@ namespace N.Package.ObjectStream
   public class PathTransform
   {
     /// Object color tint
-    public Color32 color;
+    public Color32 Color;
 
     /// The position
-    public Vector3 position;
+    public Vector3 Position;
 
     /// The rotation
-    public Quaternion rotation;
+    public Quaternion Rotation;
 
     /// The local scale
-    public Vector3 scale;
+    public Vector3 Scale;
 
     /// Set this if for some reason the object has expired, eg. moved
     /// outside of its bounds, etc. A specific path may pick this up
     /// to (for example) hide or make an object transparent.
-    public bool active;
+    public bool Active;
 
     /// Create an empty transform
     public PathTransform()
@@ -47,31 +47,31 @@ namespace N.Package.ObjectStream
     /// Reset values
     public void Unity()
     {
-      color = new Color32(255, 255, 255, 255);
-      position = default(Vector3);
-      rotation = default(Quaternion);
-      scale = new Vector3(1f, 1f, 1f);
-      active = true;
+      Color = new Color32(255, 255, 255, 255);
+      Position = default(Vector3);
+      Rotation = default(Quaternion);
+      Scale = new Vector3(1f, 1f, 1f);
+      Active = true;
     }
 
     /// Load from target
     public void From(Transform transform)
     {
-      position = transform.position;
-      scale = transform.localScale;
-      rotation = transform.rotation;
-      color = default(Color32);
-      active = true;
+      Position = transform.position;
+      Scale = transform.localScale;
+      Rotation = transform.rotation;
+      Color = default(Color32);
+      Active = true;
     }
 
     /// Load from target
     public void From(NTransform transform)
     {
-      position = transform.Position;
-      scale = transform.Scale;
-      rotation = transform.Rotation;
-      color = default(Color32);
-      active = true;
+      Position = transform.Position;
+      Scale = transform.Scale;
+      Rotation = transform.Rotation;
+      Color = default(Color32);
+      Active = true;
     }
   }
 }

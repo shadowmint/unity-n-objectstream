@@ -3,17 +3,17 @@ using N.Package.Animation;
 
 namespace N.Package.ObjectStream
 {
-    /// Use this to halt Animations in progress without disrupting the
-    /// animation manager.
-    public interface IHaltable
-    {
-        /// Stop now
-        void Halt();
+  /// Use this to halt Animations in progress without disrupting the
+  /// animation manager.
+  public interface IHaltable
+  {
+    /// Stop now
+    void Halt();
 
-        /// Resume
-        void Resume();
+    /// Resume
+    void Resume();
 
-        /// Has this target halted?
-        bool Halted { get; }
-    }
+    /// Has this target halted?
+    bool Halted { get; }
+  }
 }

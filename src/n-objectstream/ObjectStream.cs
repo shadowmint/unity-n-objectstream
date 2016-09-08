@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using N.Package.Animation;
 using N.Package.Core;
 using N.Package.Events;
@@ -53,7 +53,8 @@ namespace N.Package.ObjectStream
     /// @param spawnObjectEvery Spawn a new instance this often
     /// @param maxPoolSize Allow at most this many objects to exist
     /// @param callback Callback to provide animation curve, etc.
-    public ObjectStream(Option<GameObject> template, float spawnObjectEvery, int maxPoolSize, SpawnCallback<TStream> factory)
+    public ObjectStream(Option<GameObject> template, float spawnObjectEvery, int maxPoolSize,
+      SpawnCallback<TStream> factory)
     {
       this.SpawnObjectEvery = spawnObjectEvery;
       this._factory = factory;
@@ -90,7 +91,7 @@ namespace N.Package.ObjectStream
           {
             // Start animation
             var animation = new FollowPathAnimation(this);
-            animation.pathGroup = req.path;
+            animation.PathGroup = req.path;
             var target = new SingleSpawned(gp);
 
             req.manager.Add(req.stream, animation, req.curve, target);
@@ -99,12 +100,26 @@ namespace N.Package.ObjectStream
             req.manager.Events.AddEventHandler<AnimationCompleteEvent>((ep) =>
             {
               if (ep.animation != animation) return;
-              gp.GameObject.SetActive(false); // return object to pool
+              try
+              {
+                gp.GameObject.SetActive(false); // return object to pool
+              }
+              catch (MissingReferenceException)
+              {
+                // Probably already destroyed.
+              }
               context.Dispose();
             }, context);
           });
         }
       }
+    }
+
+    /// Clear the stream entirely and destroy partial objects
+    public void Clear()
+    {
+      Halt();
+      _pool.Clear();
     }
 
     /// Halt the object stream, end animations

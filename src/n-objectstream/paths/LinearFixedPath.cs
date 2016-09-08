@@ -3,40 +3,40 @@ using N.Package.Animation;
 
 namespace N.Package.ObjectStream.Paths
 {
-    public class LinearFixedPath : IAnimationPath
+  public class LinearFixedPath : IAnimationPath
+  {
+    public GameObject Origin { get; set; }
+
+    public GameObject Target { get; set; }
+
+    public float Speed { get; set; }
+
+    public void Update(IAnimationCurve curve, PathTransform transform, SpawnedObject spawned)
     {
-        public GameObject origin;
+      // Normal linear transforms
+      transform.Rotation = Quaternion.Slerp(Origin.transform.rotation, Target.transform.rotation, curve.Value);
+      transform.Scale = Vector3.Lerp(Origin.transform.localScale, Target.transform.localScale, curve.Value);
 
-        public GameObject target;
+      // Find new position by speed
+      var direction = (Target.transform.position - spawned.GameObject.transform.position).normalized;
+      var delta = Speed * curve.Delta * direction;
+      var output = spawned.GameObject.transform.position + delta;
 
-        public float speed;
+      // Force position to be on the correct path
+      var correctGap = (Target.transform.position - Origin.transform.position);
+      var correctDirection = correctGap.normalized;
+      var step = (output - Origin.transform.position).magnitude;
 
-        public void Update(IAnimationCurve curve, PathTransform transform, SpawnedObject spawned)
-        {
-            // Normal linear transforms
-            transform.rotation = Quaternion.Slerp(origin.transform.rotation, target.transform.rotation, curve.Value);
-            transform.scale = Vector3.Lerp(origin.transform.localScale, target.transform.localScale, curve.Value);
+      // If the movement moves past the target, halt at target
+      if (step > correctGap.magnitude)
+      {
+        step = correctGap.magnitude;
+        transform.Active = false;
+      }
 
-            // Find new position by speed
-            var direction = (target.transform.position - spawned.GameObject.transform.position).normalized;
-            var delta = speed * curve.Delta * direction;
-            var output = spawned.GameObject.transform.position + delta;
-
-            // Force position to be on the correct path
-            var correctGap = (target.transform.position - origin.transform.position);
-            var correctDirection = correctGap.normalized;
-            var step = (output - origin.transform.position).magnitude;
-
-            // If the movement moves past the target, halt at target
-            if (step > correctGap.magnitude)
-            {
-                step = correctGap.magnitude;
-                transform.active = false;
-            }
-
-            // Save output
-            output = origin.transform.position + step * correctDirection;
-            transform.position = output;
-        }
+      // Save output
+      output = Origin.transform.position + step * correctDirection;
+      transform.Position = output;
     }
+  }
 }
